@@ -1,0 +1,29 @@
+<% us=User.find(params[:id])%>
+
+<h4><font color='green'><%= us.first_name%> <%= us.last_name%></font></h4>
+
+<input id="primessagetext" size="50" type="text" />
+
+<a id="sendprivatelink" href="#" onClick="changehref();"  data-remote="true">send private!<a>
+
+<script type="text/javascript">
+           
+           function changehref() {
+           var mess = document.getElementById("primessagetext").value;
+           var urlpath = '/sendprivate/';
+           var path = window.location.pathname;
+           var paramid = path.substring(path.lastIndexOf("/") + 1);
+           document.getElementById("sendprivatelink").href = urlpath+paramid+'-'+mess;
+           }
+           window.setInterval(function() {
+           $("#messages").load(location.href+" #messages>*","");
+           }, 1000);
+</script>
+<%session['saved_location']='userMessage'%>
+
+<%session['userMessageParam']=params[:id]%>
+<div id="messages" style="color:black">
+
+ <%= render Message.where("(sender_id = :uid1 AND receiver_id= :uid2) OR (sender_id= :uid2 AND receiver_id= :uid1)", {:uid1=> current_user.id, :uid2 => params[:id]}) %>
+
+</div>

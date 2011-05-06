@@ -1,0 +1,71 @@
+<div id="menu">
+
+<h4 class="right">Welcome <%= current_user.first_name.to_s%> <%= current_user.last_name.to_s%>!</h4>
+
+<br />
+<h4 class="right"><%= link_to 'log out', logout_path %>
+</h4>
+<h1 style="margin-left:45%">Global Chat</h1>
+</div>
+
+<div id="wrapper">
+	<div id="content">
+	<div id="posts">
+		<div class="post">
+			<h2 class="title">Global messages</h2>
+			<div class="story">
+				<input id="messagetext" size="50" type="text" />
+
+<a id="sendlink" href="#" onClick="changehref();" data-remote="true">Send</a>
+
+<script type="text/javascript">
+           
+           function changehref() {
+           var mess = document.getElementById("messagetext").value;
+           var urlpath = '/sendmessage/';
+           document.getElementById("sendlink").href = urlpath+mess;
+           }
+
+           window.setInterval(function() {
+          $("#aj").load(location.href+" #aj>*","");
+          }, 1000);
+
+          function refreshpage(){
+          $("#aj").load(location.href+" #aj>*","");
+          }
+</script>
+<div id="aj">
+<br />
+<div id="usermessage"  style="width:400px; height:400px;">
+
+<select name="drop1" id="Select1" style="width:490px; height:440px" multiple="multiple">
+<% @messages.each do |message| %>
+
+
+    <% id=message.sender_id %>
+    <% if id!=nil then %>
+    <% us=User.find_by_id(id)%>
+    <option value="<%= message.id %>"> <%= us.email.to_s%>:  <%= message.message_text %></option>
+
+<% end %>  
+<% end %>  
+</select> 
+</div></div>
+			</div>
+		       </div>
+		</div>
+		<!-- end #posts -->
+		<div id="links">
+			<ul>
+			<li>
+			<h2>Select from below:</h2>
+			<ul>
+			<li><a href="/privateMessages"><h3>Private Messages!</h3></li>
+		               <li><a href="/spots"><h3>Classroom!</h3></a></li>
+				</li>
+			</ul>
+		</div>
+		<!-- end #links -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+</div>

@@ -1,0 +1,18 @@
+<!--<meta http-equiv="refresh" content="15" />-->
+
+
+<%= div_for message do %>
+
+    <% id=message.sender_id %>
+    <% if id!=nil then %>
+    <% us=User.find_by_id(id)%>
+
+    <p><%= us.email.to_s%>:  <%= message.message_text %></p>
+<% end %>
+
+
+
+  
+
+<% end %>
+

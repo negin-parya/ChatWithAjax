@@ -1,0 +1,12 @@
+<h3> 
+<font color="green">
+<%= render @user %>
+</font>
+</h3>
+<%= render :file => 'messages/new'%>
+
+<div id="messages">
+ <%= render @user.messages.where("(sender_id = :uid1 AND receiver_id= :uid2) OR (sender_id= :uid2 AND receiver_id= :uid1)", {:uid1=> current_user.id, :uid2 => @user.id}) %>
+
+</div>
+

@@ -1,0 +1,85 @@
+<script type="text/javascript">
+function showPopup(url,name) {
+
+var e = document.getElementById("Select2");
+
+
+var strVal = e.options[e.selectedIndex].value;
+
+
+url=url+strVal;
+newwindow=window.open(url,strVal,'height=220,width=520,top=200,left=300,resizable');
+if (window.focus) {newwindow.focus()}
+}
+</script>
+
+<div id="menu">
+
+<h4 class="right">Welcome <%= current_user.first_name.to_s%> <%= current_user.last_name.to_s%>!</h4>
+
+<br />
+<h4 class="right"><%= link_to 'log out', logout_path %>
+</h4>
+<h1 style="margin-left:43%">Private messages</h1>
+</div>
+
+<div id="wrapper">
+	<div id="content">
+	<div id="posts">
+		<div class="post">
+			<h2 class="title">Private messages</h2>
+			<div class="story">
+Please Double Click on each message to start chatting with the sender.
+				<table>
+  <tr>
+    <th>Private Messages:</th>
+      
+   
+   <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+
+  <tr>
+
+<td>
+<select name="drop2" id="Select2"  style = "width:480px; height:500px"  multiple="multiple" onDblClick="showPopup('/userMessage/',1);return(false);">
+
+<% @private_messages.each do |pmessage| %>
+
+
+
+    <% id=pmessage.sender_id %>
+    <% if id!=nil then %>
+    <% us=User.find_by_id(id)%>
+
+    <option value="<%= pmessage.sender_id %>" > <%= us.email.to_s%>:  <%= pmessage.message_text %></option>
+
+      
+   
+<%end%>
+<% end %>
+
+
+</select>  
+
+</table>
+			</div>
+		       </div>
+		</div>
+		<!-- end #posts -->
+		<div id="links">
+			<ul>
+			<li>
+			<h2>Select from below:</h2>
+			<ul>
+			<li><a href="/messages"><h3>Global Messages!</h3></li>
+		               <li><a href="/spots"><h3>Classroom!</h3></a></li>
+				</li>
+			</ul>
+		</div>
+		<!-- end #links -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+</div>

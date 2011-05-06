@@ -1,0 +1,83 @@
+<p id="notice">
+<%= notice %>
+</p>
+
+
+<div id="menu">
+<br />
+<h1 style="margin-left:45%">Seating Chart</h1>
+
+</div>
+
+<div id="wrapper">
+	<div id="content">
+<div id="chartdiv" style="float:right ; border-style: solid; border-color: #000000; width: 80%; height:400px; margin-right:10%; margin-top:10%" data-remote="true" >
+    <div style="border: thin solid #C0C0C0; margin: 5% 44% 5% 44%; height: 20px" id="professorplace">
+    </div>
+    <% count = 1 %>
+    <% @spots.each do |spot| %>
+    <% if ((count-1)/5)%2==0  %>
+       <% if count%5== 0 %> 
+           <% if spot.sessionid != nil %> 
+	<a href="/userMessage/<%= spot.sessionid %>" onClick="showPopup(this.href,<%= spot.sessionid %>);return(false);" class="student"><%= User.find(spot.sessionid).first_name %></a>
+           <% else %>
+	<a href="/spots/<%= spot.id %>" class="student"> * </a>
+            <% end %>
+          </div>
+       <% elsif count%5== 1 %>
+           <div style="border: thin solid #C0C0C0; float:left; margin-left: 5%; margin-bottom: 1%;  width:40%">
+           <% if spot.sessionid != nil %>
+	<a href="/userMessage/<%= spot.sessionid %>" onClick="showPopup(this.href,<%= spot.sessionid %>);return(false);" class="student"><%= User.find(spot.sessionid).first_name %></a>
+           <% else %>
+	<a href="/spots/<%= spot.id %>" class="student"> * </a>
+           <% end %>
+      <% else %>
+	<% if spot.sessionid != nil %>
+		<a href="/userMessage/<%= spot.sessionid %>" onClick="showPopup(this.href,<%= spot.sessionid %>);return(false);" class="student"><%= User.find(spot.sessionid).first_name %></a>
+       	<% else %>
+		<a href="/spots/<%= spot.id %>" class="student"> * </a>
+	<% end %>
+      <% end %>
+    <% else %>
+       <% if count%5== 0 %> 
+           <% if spot.sessionid != nil %>
+           	<a href="/userMessage/<%= spot.sessionid %>" onClick="showPopup(this.href,<%= spot.sessionid %>);return(false);" class="student"><%= User.find(spot.sessionid).first_name %></a>
+           <% else %>
+	<a href="/spots/<%= spot.id %>" class="student"> * </a>
+           <% end %>
+           </div>
+       <% elsif count%5== 1 %>
+           <div style="border: thin solid #C0C0C0; float:right; margin-right: 5%; margin-bottom: 1%;  width:40%">
+           <% if spot.sessionid != nil %>
+	<a href="/userMessage/<%= spot.sessionid %>" onClick="showPopup(this.href,<%= spot.sessionid %>);return(false);" class="student"><%= User.find(spot.sessionid).first_name %></a>
+           <% else %>
+	<a href="/spots/<%= spot.id %>" class="student"> * </a>
+           <% end %>
+       <% else %>
+           <% if spot.sessionid != nil %>
+           	<a href="/userMessage/<%= spot.sessionid %>" onClick="showPopup(this.href,<%= spot.sessionid %>);return(false);" class="student"><%= User.find(spot.sessionid).first_name %></a>
+           <% else %>
+	<a href="/spots/<%= spot.id %>" class="student"> * </a>
+           <% end %>
+       <% end %>
+    <% end %>
+     <% count +=1 %>
+    <% end %>
+  </div></div></div> 
+</div></div></div>
+
+<a href="/messages" > Global Messages</a>
+<br>
+<a href="/privateMessages" onClick="refreshParent();">Private Messages</a>
+<br>
+
+<script type="text/javascript">
+           window.setInterval(function() {
+          $("#chartdiv").load(location.href+" #chartdiv>*","");
+          }, 5000);
+
+function showPopup(url,name) {
+newwindow=window.open(url,name,'height=220,width=550,top=200,left=300,resizable');
+if (window.focus) {newwindow.focus()}
+}
+</script>

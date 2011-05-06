@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<head>
+
+  <title>Chat</title>
+
+  <%= stylesheet_link_tag 'css' %>
+  <style type="text/css"><%= yield :stylesheets %></style>
+  <%= javascript_include_tag 'jquery-1.4.2.min', 'rails', 'application' %>  <%= csrf_meta_tag %>
+
+</head>
+
+<body>
+
+
+<div Style="float: right; border: 2px solid Black;">
+<% if logged_in? %>
+        <%= link_to "Logout", logout_path %><br /> 
+        <a href="/users/<%=current_user.id  %>/edit">Edit your profile</a>
+<% else %>
+        <%= link_to "Login", login_path %><br />
+        <a href = "/users/new">Not a user? sign up</a>
+<% end %>
+
+</div>
+<%= yield %>
+
+
+</body>
+
+</html>
+
+

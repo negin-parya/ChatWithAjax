@@ -1,0 +1,65 @@
+<script type="text/javascript">
+function showPopup(url,name) {
+newwindow=window.open(url,name,'height=220,width=520,top=200,left=300,resizable');
+if (window.focus) {newwindow.focus()}
+}
+
+</script>
+<div id="menu">
+
+<h4 class="right">Welcome <%= current_user.first_name.to_s%> <%= current_user.last_name.to_s%>!</h4>
+
+<br />
+<h4 class="right"><%= link_to 'log out', logout_path %>
+</h4>
+<h1 style="margin-left:43%">Backchannel Chat</h1>
+</div>
+
+
+	<div id="content">
+	<div id="posts">
+		<div class="post">
+			<h2 class="title">Users:</h2>
+			<div class="story">
+				<p><table>
+  <tr>
+  
+   
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+
+<td><a href="userMessage/<%=user.id%>" onClick="showPopup(this.href,<%=user.id%>);return(false);"><%=user.first_name%> <%=user.last_name%></a>
+
+</td>
+
+    <td>(<%= user.email%>)</td>
+
+
+ </tr>
+<% end %>
+</table>
+
+</p>
+				</div>
+			</div>
+			
+		</div>
+		<!-- end #posts -->
+		<div id="links">
+			<ul>
+			<li>
+			<h2>Select from below:</h2>
+			<ul>
+			<li><a href="/messages"><h3>Global Chat!</h3></li>
+		               <li><a href="/privateMessages"><h3>Private mesages!</h3></a></li>
+				</li>
+				
+				
+			</ul>
+		</div>
+		<!-- end #links -->
+		<div style="clear: both;">&nbsp;</div>
+	</div>
+</div>
